@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2026 at 07:43 PM
+-- Generation Time: May 22, 2026 at 07:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `gacha`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `password` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `name`, `email`, `password`) VALUES
+(2, 'admin', 'admin@gmail.com', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9');
 
 -- --------------------------------------------------------
 
@@ -89,9 +109,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `gems`) VALUES
 (1, 'hype', 'hype@gmail.com', '34393b55098ba242deac56c14196656c35e9b8994d20eb4427dab9b3f8b14524', 600),
-(2, 'sixsevens', 'sixseven@gmail.com', 'ed227bb0d191d168545bec592e8b9c1199ef4ffa122a7395ededa0cf888dc09f', 1000),
-(3, 'glen', 'glensky@gmail.com', '3910920cef851c80b65e079866fe1956a18959d9a6b7cf6b7fd8b0d5e18a761b', 600),
-(4, 'epstein', 'epstein@gmail.com', '351fbf03448ba638c97ab7990d132e3590b4395b50b07b30e99d96e77a9697a4', 1000);
+(3, 'glen', 'glensky@gmail.com', '3910920cef851c80b65e079866fe1956a18959d9a6b7cf6b7fd8b0d5e18a761b', 600);
 
 -- --------------------------------------------------------
 
@@ -194,6 +212,12 @@ INSERT INTO `waifu` (`id`, `name`, `image`) VALUES
 --
 
 --
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `characters`
 --
 ALTER TABLE `characters`
@@ -226,6 +250,12 @@ ALTER TABLE `waifu`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `characters`

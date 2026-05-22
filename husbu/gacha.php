@@ -36,9 +36,19 @@
                 $row = $result->fetch_assoc();
                 $insert = "INSERT IGNORE into user_characters (user_id, character_id) VALUES (".$_SESSION['id'].", ".$id.")";
                 $connection->query($insert);
-                $_SESSION['result'] = '<p> You just got a '.$type.' </p> <br>
+                if ($connection->affected_rows == 0){
+                    $_SESSION['result'] = '<p> Duplicated '.$type.' </p> <br>
+                        <img src="../husbuimages/'.$type.'/'.$row['image'].'" width=150 height=150> <br>
+                        <p> '.$row['name'].' converted into 50 gems </p>';
+                    $refund = "UPDATE user SET gems = gems + 50 WHERE id=".$_SESSION['id'];
+                    $connection->query($refund);
+                }
+                else{
+                    $_SESSION['result'] = '<p> You just got a '.$type.' </p> <br>
                             <img src="../husbuimages/'.$type.'/'.$row['image'].'" width=150 height=150> <br>
                             <p> '.$row['name'].'</p>';
+                }
+                
                 
             }
             header("location: ".$_SERVER['PHP_SELF']);

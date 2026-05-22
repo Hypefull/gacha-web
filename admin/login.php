@@ -1,30 +1,33 @@
 <?php
-    require_once('library/connect.php');
+    session_start();
+    require_once('../library/connect.php');
 
     if(isset($_POST['submit'])){
-        $name = $_POST['name'];
         $email = $_POST['email'];
         $password = hash('sha256',$_POST['password']);
-        $sql = "INSERT into user (name, email, password) VALUES ('".$name."','".$email."','".$password."')";
-        $connection->query($sql);
-        header("location: registerSuccess.php");
+        $sql = "SELECT * from admin where email='".$email."' and password ='".$password."'";
+        $result = $connection->query($sql);
+        if($result->num_rows > 0){
+            $row = $result->fetch_assoc();
+            $_SESSION['admin'] = $row['name'];
+            header("location: index.php");
+        }
+        else {
+            echo '<p style: text-align="center">Login Gagal</p>';
+        }
     }
+
 ?>
 
 <html>
     <head>
-        <title>Register</title>
-        <script src="library/script.js"></script>
+        <title>Login</title>
+        <script src="../library/script.js"></script>
     </head>
     <body>
-        <h1>Register Account</h1>
-        <a href="login.php"><h1>Login</h1></a>
+        <h1>Login Admin</h1>
+        <a href="register.php"><h1>Register</h1></a>
         <form method="POST">
-            <div>
-                <label for="name">Name</label>
-                <input type="text" id="name" placeholder="Name" name="name" required>
-            </div>
-
             <div>
                 <label for="email">Email</label>
                 <input type="email" id="email" placeholder="Email" name="email" required>
@@ -37,7 +40,7 @@
                 <input type="checkbox" onclick="showPassword()">Show Password
             </div>
             <div>
-                <button type="submit" id="submit" name="submit">Create</button>
+                <button type="submit" id="submit" name="submit">Login</button>
             </div>
         
         </form>
